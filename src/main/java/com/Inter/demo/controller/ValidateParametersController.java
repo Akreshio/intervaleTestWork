@@ -12,9 +12,6 @@ import javax.validation.ConstraintViolationException;
 @RestController
 @Validated
 class ValidateParametersController {
-
-    // request mapping method omitted
-
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException e) {

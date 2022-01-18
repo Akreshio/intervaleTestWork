@@ -21,7 +21,7 @@ public class BookDeserializer extends JsonDeserializer<Book> {
         return new Book(node.get("isbn").textValue(),
                 node.get("name").textValue(),
                 node.get("writer").textValue(),
-                node.get("page").asInt() + 10,
+                node.get("page").asInt(),
                 node.get("price").asInt(),
                 node.get("weight").asDouble()
                 );

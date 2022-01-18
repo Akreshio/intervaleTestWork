@@ -2,6 +2,7 @@ package com.Inter.demo.controller;
 
 import com.Inter.demo.model.books.Book;
 import com.Inter.demo.model.books.BookMap;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -11,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping("/book")
@@ -52,7 +54,7 @@ public class BookContoller {
     }
 
     @PostMapping
-    public ResponseEntity<String> update( @RequestBody Book book) {
+    public ResponseEntity<String> update(@Valid @RequestBody Book book) {
         bookMap.remove(book.getIsbn());
         bookMap.put(book);
         return new ResponseEntity<String>(book.getIsbn(), HttpStatus.OK);
@@ -64,16 +66,6 @@ public class BookContoller {
             return new ResponseEntity<Void>(HttpStatus.FOUND);
         }
         return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-    }
-
-    @Validated
-    class ValidateParametersController {
-        @ExceptionHandler(ConstraintViolationException.class)
-        @ResponseStatus(HttpStatus.BAD_REQUEST)
-        public ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException e) {
-            return new ResponseEntity<>("not valid due to validation error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-
     }
 }
 
