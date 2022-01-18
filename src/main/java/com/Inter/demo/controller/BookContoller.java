@@ -1,7 +1,7 @@
-package com.Inter.demo.domain.controller;
+package com.Inter.demo.controller;
 
-import com.Inter.demo.domain.data.books.Book;
-import com.Inter.demo.domain.data.books.BookMap;
+import com.Inter.demo.model.books.Book;
+import com.Inter.demo.model.books.BookMap;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;

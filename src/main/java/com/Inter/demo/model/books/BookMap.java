@@ -1,4 +1,4 @@
-package com.Inter.demo.domain.data.books;
+package com.Inter.demo.model.books;
 
 import lombok.Getter;
 

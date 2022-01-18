@@ -1,5 +1,7 @@
-package com.Inter.demo.domain.data.books;
+package com.Inter.demo.model.books;
 
+import com.Inter.demo.controller.deserializer.BookDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Getter;
 
 import javax.validation.constraints.Min;
@@ -8,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Getter
+@JsonDeserialize(using = BookDeserializer.class)
 public class Book {
 
     @NotNull (message = "not be null")
@@ -18,9 +21,9 @@ public class Book {
     int price;
     @NotNull
     double weight;
-    @Size (min = 9, max = 12, message = "ISBN не корректен")
+    @Size (min = 9, max = 12, message = "ISBN not corection")
     String isbn;
-    @NotEmpty
+    @NotEmpty (message = "not be empty")
     String name, writer;
 
     public Book(String isbn, String name,String writer, int page, int price, double weight) {
