@@ -1,16 +1,17 @@
 package com.Inter.demo.database.books;
 
 import com.Inter.demo.model.books.Book;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.HashMap;
 
+@Repository
 public class BookDAO {
 
-
-    private static final String CON_STR = "jdbc:sqlite:./data/timesheet.s3db";  // адрес подключения
+    private static final String CON_STR = "jdbc:postgresql://localhost:5432/intervale";  // адрес подключения
     private static BookDAO instance = null;   // экземпляров класса DbHandler
-    private Connection connection;  // Соединение с БД
+    private final Connection connection;  // Соединение с БД
 
     public static synchronized BookDAO getInstance() throws SQLException {
         if (instance == null)
@@ -21,7 +22,7 @@ public class BookDAO {
     public BookDAO() throws SQLException {
 
 //        DriverManager.registerDriver(new JDBC());
-        this.connection = DriverManager.getConnection(CON_STR);
+        this.connection = null; // DriverManager.getConnection(CON_STR);
     }
 
     // Чиение

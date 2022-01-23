@@ -1,16 +1,16 @@
 package com.Inter.demo.controller;
 
 import com.Inter.demo.model.books.Book;
-import com.Inter.demo.model.books.BookMap;
+import com.Inter.demo.service.book.BookMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.apache.log4j.Logger;
 
-import javax.validation.ConstraintViolationException;
+
 import javax.validation.Valid;
 
 
@@ -19,28 +19,29 @@ import javax.validation.Valid;
 @Validated
 public class BookContoller {
 
-    private static final Logger log = Logger.getLogger(BookContoller.class);
 
-    BookMap bookMap = new BookMap();
-    {
-        bookMap.put( new Book("nsqw","book1","not me", 10, 158, 15));
-        bookMap.put( new Book("nsqq","book2","not me", 15, 1558, 115));
-        bookMap.put( new Book("nsqe","book3","not me", 19, 158789, 135));
+
+
+    BookMap bookMap;
+
+    @Autowired
+    public BookContoller(BookMap bookMap) {
+        this.bookMap = bookMap;
     }
-
-
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public  BookMap get(@RequestParam (value = "id", required = false) String id) {
-            log.info("Получение списка книг");
-            if (bookMap.isId(id) && id!=null) {
+    public  String get(@RequestParam (value = "id", required = false) String id) {
+         //   log.info("Получение списка книг");
+           /* if (bookMap.isId(id) && id!=null) {
                 BookMap bookMapOne = new BookMap();
                 bookMapOne.put(bookMap.getForId(id));
-                log.info("по id = " + id);
+              //  log.info("по id = " + id);
                 return bookMapOne;
             }
-        return  bookMap;
+
+            */
+        return  bookMap.toString();
     }
 
     @PutMapping
@@ -48,7 +49,7 @@ public class BookContoller {
         if(bindingResult.hasErrors())
             return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
         System.out.println(newBook + " | " + bindingResult.hasErrors());
-        log.info("Добавление книги " + newBook);
+       // log.info("Добавление книги " + newBook);
         bookMap.put(newBook);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
@@ -67,5 +68,6 @@ public class BookContoller {
         }
         return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
     }
+
 }
 
