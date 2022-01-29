@@ -7,7 +7,7 @@
 
     <changeSet id="1642937859656-1" author="Victor">
         <createTable tableName="books">
-            <column name="id" type="BIGINT">
+            <column name="id" type="bigserial" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_books"/>
             </column>
             <column name="page" type="INT">

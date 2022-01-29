@@ -1,7 +1,7 @@
 package com.Inter.demo.controller;
 
-import com.Inter.demo.model.books.Book;
-import com.Inter.demo.service.book.BookMap;
+import com.Inter.demo.model.books.BookDto;
+import com.Inter.demo.service.book.BooksService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,8 +10,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-
 import javax.validation.Valid;
+import java.awt.print.Book;
+import java.util.List;
 
 
 @RestController
@@ -20,54 +21,44 @@ import javax.validation.Valid;
 public class BookContoller {
 
 
-
-
-    BookMap bookMap;
-
     @Autowired
-    public BookContoller(BookMap bookMap) {
-        this.bookMap = bookMap;
-    }
+    BooksService books;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public  String get(@RequestParam (value = "id", required = false) String id) {
+    public List<BookDto> get(@RequestParam (value = "isbn", required = false) String isbn) {
          //   log.info("Получение списка книг");
-           /* if (bookMap.isId(id) && id!=null) {
-                BookMap bookMapOne = new BookMap();
-                bookMapOne.put(bookMap.getForId(id));
-              //  log.info("по id = " + id);
-                return bookMapOne;
+            if (isbn!=null) {
+                return books.get(new BookDto(isbn));
             }
-
-            */
-        return  bookMap.toString();
+        return  books.get();
     }
-
     @PutMapping
-    public ResponseEntity<Void> add(@Valid @RequestBody Book newBook, BindingResult bindingResult) {
+    public ResponseEntity<Void> add(@Valid @RequestBody BookDto newBook, BindingResult bindingResult) {
         if(bindingResult.hasErrors())
             return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-        System.out.println(newBook + " | " + bindingResult.hasErrors());
        // log.info("Добавление книги " + newBook);
-        bookMap.put(newBook);
+        books.add(newBook);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
-
+/*
     @PostMapping
     public ResponseEntity<String> update(@Valid @RequestBody Book book) {
         bookMap.remove(book.getIsbn());
         bookMap.put(book);
         return new ResponseEntity<String>(book.getIsbn(), HttpStatus.OK);
     }
-
+ */
     @DeleteMapping
-    public ResponseEntity<Void> delete(@RequestBody String id) {
-        if (bookMap.isId(id)) { bookMap.remove(id);
-            return new ResponseEntity<Void>(HttpStatus.FOUND);
-        }
+    public ResponseEntity<Void> delete(@Valid @RequestBody BookDto newBook, BindingResult bindingResult) {
+        if(bindingResult.hasErrors())
+            return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+        // log.info("Удаление книги " + newBook);
+        books.remove(newBook);
         return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
     }
+
+
 
 }
 

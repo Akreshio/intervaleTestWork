@@ -1,17 +1,17 @@
 package com.Inter.demo.database.books;
 
-import com.Inter.demo.model.books.Book;
+import com.Inter.demo.model.books.BookDao;
 
-import java.util.HashMap;
-import java.util.Optional;
+import java.util.List;
 //import java.util.Optional;
 
 public interface BooksDao {
 
     //Optional<Book> getBookById(int id);
 
-    Optional<HashMap <Long, Book>> get();
-    HashMap<String, Book> search (Book book);
-    boolean add(Book book);
-    boolean delete(Book book);
+    List<BookDao> get();
+    List<BookDao> get(BookDao bookDao);
+
+    boolean add(BookDao bookDao);
+    boolean delete(BookDao bookDao);
 }

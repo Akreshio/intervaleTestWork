@@ -1,103 +1,64 @@
 package com.Inter.demo.database.books;
 
-import com.Inter.demo.model.books.Book;
+import com.Inter.demo.database.books.service.SqlParameter;
+import com.Inter.demo.database.books.service.SqlQuerty;
+import com.Inter.demo.model.books.BookDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.Optional;
+import java.util.List;
 
 @Repository
 public class BookDaoImpl implements BooksDao{
 
-    private static final String TABLE_NAME = "books ";
-
-    private static final String SQL_GET_PROFILE_BY_ID =
-            "select * from " + TABLE_NAME ;
-
-
-    private static final String SQL_GET_BOOK = "select * from " + TABLE_NAME;
-    // select * from profiles where id = :id";
-
-    private static final String SQL_INSERT_BOOK = "insert into " + TABLE_NAME;
-    //(first_name, last_name, age) values (:firstName, :lastName, :age)";
-
-    private static final String SQL_UPDATE_BOOK = "update " + TABLE_NAME + "set ";
-    // set first_name = :firstName, last_name = :lastName, age = :age where id = :id";
-
-    private static final String SQL_DELETE_BOOK = "delete from " + TABLE_NAME + "where ";
-    // id = :id ;
-
-
-
     private final BookMapper bookMapper;
     private final NamedParameterJdbcTemplate jdbcTemplate;
+    private final SqlParameter queryParam;
 
     @Autowired
-    public BookDaoImpl(BookMapper bookMapper, NamedParameterJdbcTemplate jdbcTemplate) {
+    public BookDaoImpl(BookMapper bookMapper, NamedParameterJdbcTemplate jdbcTemplate, SqlParameter queryParam) {
         this.bookMapper = bookMapper;
         this.jdbcTemplate = jdbcTemplate;
+        this.queryParam = queryParam;
     }
 
     @Override
-    public Optional<HashMap <Long, Book>> get() {
-        int id = 1;
-        MapSqlParameterSource params = new MapSqlParameterSource();
-        try {return  Optional.ofNullable(
-                jdbcTemplate.queryForObject(
-                        SQL_GET_BOOK,
-                        params,
-                        bookMapper
-                ));
-        } catch (EmptyResultDataAccessException e) {
-            return Optional.empty();
+    public List <BookDao> get() {
+        return jdbcTemplate.query(SqlQuerty.get.sql(), bookMapper);
         }
 
+    @Override
+    public List<BookDao> get(BookDao bookDao) {
+        queryParam.set(bookDao, SqlQuerty.get_by);
 
+        System.out.println( queryParam.getSql().toString());
+        System.out.println( queryParam.getParams().toString());
 
-/*
-        HashMap<Long, Book> hashMap;
-        MapSqlParameterSource params = new MapSqlParameterSource();
-        try {hashMap = Optional.ofNullable(
-                jdbcTemplate.queryForObject(
-                        SQL_GET_BOOK,
-                        params,
-                        bookMapper
-                )).orElseThrow();
-            return hashMap;
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
-
- */
+        return jdbcTemplate.query(
+                queryParam.getSql().toString(),
+                queryParam.getParams(),
+                bookMapper
+        );
     }
 
     @Override
-    public HashMap<String, Book> search(Book book) {
-        return null;
+    public boolean delete(BookDao bookDao) {
+        queryParam.set(bookDao, SqlQuerty.delete);
+        jdbcTemplate.update(
+                queryParam.getSql().toString(),
+                queryParam.getParams()
+        );
+        return true;
     }
 
     @Override
-    public boolean add(Book book) {
-        return false;
-    }
-
-    @Override
-    public boolean delete(Book book) {
-        return false;
-    }
-
-    // id = :id ;
-    private String sqlFormate (Book book) {
-        if (book.getId()!=null)     {return "id = :id";}
-        if (book.getPage()!=0)      {return "page = :page";}
-        if (book.getPrice()!=0)     {return "price = :price";}
-        if (book.getWeight()!=0)    {return "weight = :weight";}
-        if (book.getWriter()!=null) {return "writer = :writer";}
-        if (book.getName()!=null)   {return "name = :name";}
-        return "";
+    public boolean add(BookDao bookDao) {
+        queryParam.set(bookDao, SqlQuerty.insert);
+        jdbcTemplate.update(
+                queryParam.getSql().toString(),
+                queryParam.getParams()
+        );
+        return true;
     }
 }
