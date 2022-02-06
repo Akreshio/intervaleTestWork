@@ -31,12 +31,8 @@ public class BookDaoImpl implements BooksDao{
     @Override
     public List<BookDao> get(BookDao bookDao) {
         queryParam.set(bookDao, SqlQuerty.get_by);
-
-        System.out.println( queryParam.getSql().toString());
-        System.out.println( queryParam.getParams().toString());
-
         return jdbcTemplate.query(
-                queryParam.getSql().toString(),
+                queryParam.getQuerySql(),
                 queryParam.getParams(),
                 bookMapper
         );
@@ -46,9 +42,16 @@ public class BookDaoImpl implements BooksDao{
     public boolean delete(BookDao bookDao) {
         queryParam.set(bookDao, SqlQuerty.delete);
         jdbcTemplate.update(
-                queryParam.getSql().toString(),
+                queryParam.getQuerySql(),
                 queryParam.getParams()
         );
+        return true;
+    }
+
+    @Override
+    public boolean update(BookDao oldBook, BookDao newBook) {
+        delete(oldBook);
+        add(newBook);
         return true;
     }
 

@@ -37,7 +37,7 @@ public class BooksService implements BookService {
 
     @Override
     public boolean update(BookDto oldBook, BookDto newBook) {
-        return false;
+        return booksDao.update(bookToDAO(oldBook),bookToDAO(newBook));
     }
 
 

@@ -11,7 +11,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.awt.print.Book;
 import java.util.List;
 
 
@@ -33,6 +32,7 @@ public class BookContoller {
             }
         return  books.get();
     }
+
     @PutMapping
     public ResponseEntity<Void> add(@Valid @RequestBody BookDto newBook, BindingResult bindingResult) {
         if(bindingResult.hasErrors())
@@ -41,14 +41,16 @@ public class BookContoller {
         books.add(newBook);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
-/*
+
     @PostMapping
-    public ResponseEntity<String> update(@Valid @RequestBody Book book) {
-        bookMap.remove(book.getIsbn());
-        bookMap.put(book);
-        return new ResponseEntity<String>(book.getIsbn(), HttpStatus.OK);
+    public ResponseEntity<Void> update(@Valid @RequestBody List<BookDto> dtoList) {
+        if (dtoList.size()==2){
+            books.update(dtoList.get(0),dtoList.get(1));
+            return new ResponseEntity<Void>(HttpStatus.OK);
+        }
+        return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
     }
- */
+
     @DeleteMapping
     public ResponseEntity<Void> delete(@Valid @RequestBody BookDto newBook, BindingResult bindingResult) {
         if(bindingResult.hasErrors())

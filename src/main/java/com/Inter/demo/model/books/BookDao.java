@@ -3,13 +3,9 @@ package com.Inter.demo.model.books;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "Books")
+@Table(name = "books")
 @Getter
 @Setter
 public class BookDao implements Book {
@@ -19,30 +15,23 @@ public class BookDao implements Book {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @NotNull (message = "not be null")
-    @Min( value = 0, message = "not be 0")
     @Column(name = "page", nullable = false)
     int  page;
 
-    @NotNull (message = "not be null")
-    @Min( value = 0, message = "not be 0")
+
     @Column(name = "price", nullable = false)
     int price;
 
-    @NotNull
     @Column(name = "weight", nullable = false)
     double weight;
 
-    @Size (min = 9, max = 12, message = "ISBN not corection")
     @Column(name = "isbn", nullable = false)
     String isbn;
 
     @Column(name = "writer", nullable = false)
-    @NotEmpty (message = "not be empty")
     String writer;
 
     @Column(name = "name", nullable = false)
-    @NotEmpty (message = "not be empty")
     String name;
 
     public BookDao() {}

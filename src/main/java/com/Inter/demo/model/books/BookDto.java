@@ -21,23 +21,23 @@ public class BookDto implements Book {
 
     @NotNull(message = "not be null")
     @Min(value = 0, message = "not be 0")
-    private final int page;
+    private int page;
 
     @NotNull(message = "not be null")
     @Min(value = 0, message = "not be 0")
-    private final int price;
+    private int price;
 
     @Min(value = 0, message = "not be 0")
-    private final double weight;
+    private double weight;
 
     @Size(min = 9, max = 12, message = "ISBN not corection")
-    private final String isbn;
+    private String isbn;
 
     @NotEmpty(message = "not be empty")
-    private final String writer;
+    private String writer;
 
     @NotEmpty(message = "not be empty")
-    private final String name;
+    private String name;
 
 
     public BookDto() {
@@ -75,6 +75,9 @@ public class BookDto implements Book {
         this.name = book.getName();
     }
 
-
-
+    @Override
+    public String toString() {
+        return "isbn=" + isbn + ", name=" + name + ", writer=" + writer +
+                " page=" + page + ", price=" + price + ", weight=" + weight + '\n';
+    }
 }

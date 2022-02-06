@@ -11,54 +11,71 @@ import org.springframework.stereotype.Component;
 @Component
 public class SqlCreateByBook {
 
-    private MapSqlParameterSource params = new MapSqlParameterSource();
-    private String[] column = new String[7];
-    private String[] param = new String[7];
-    private int i = 0;
+    private final MapSqlParameterSource params = new MapSqlParameterSource();
+    private final String[] column = new String[7];
+    private final String[] param = new String[7];
 
-    public void set (BookDao bookDao) {
-        i=0;
+    public int set (BookDao bookDao) {
+        int i=0;
 
-        if((bookDao.getId()!=null)){
-            params.addValue("id", bookDao.getId());
-            column[i] = "id ";
-            param[i] = " :id";
-            i++;
-        }
-        if (bookDao.getPage()!=0){
-            params.addValue("page", bookDao.getPage());
-            column[i] = "page";
-            param[i] = " :page";
-            i++;
-        }
-        if (bookDao.getPrice()!=0){
-            params.addValue("price", bookDao.getPrice());
-            column[i] = "price";
-            param[i] = " :price";
-            i++;
-        }
-        if (bookDao.getWeight()!=0){
-            params.addValue("weight", bookDao.getWeight());
-            column[i] = "weight";
-            param[i] = " :weight";
-            i++;
-        }
-        if (!bookDao.getIsbn().isEmpty())   {
-            params.addValue("isbn", bookDao.getIsbn());
-            column[i] = "isbn";
-            param[i] = " :isbn";
-            i++;
-        }
-        if (!bookDao.getWriter().isEmpty()) {
-            params.addValue("writer", bookDao.getWriter());
-            column[i] = "writer";
-            param[i] = " :writer";
-            i++;
-        }
-        if (!bookDao.getName().isEmpty())   {
-            params.addValue("name", bookDao.getName());
-            column[i] = "name";
-            param[i] = " :name";
-        }
+        //long
+        i = setField(bookDao.getId(),"id", i);
+
+       //int
+        i = setField(bookDao.getPage(),"page", i);
+        i = setField(bookDao.getPrice(),"price", i);
+
+        //double
+        i = setField(bookDao.getWeight(),"weight", i);
+
+        //string
+        i = setField(bookDao.getIsbn(),"isbn", i);
+        i = setField(bookDao.getWriter(),"writer", i);
+        i = setField(bookDao.getName(),"name", i);
+        return i;
     }
+
+    private int setField (String inString, String nameColum, int counter) {
+        if (!inString.isEmpty()) {
+            params.addValue(nameColum, param);
+            column[counter] = nameColum;
+            param[counter] = " :" + nameColum;
+            counter++;
+            return counter;
+        }
+        return counter;
+    }
+    private int setField (int inInt, String nameColum, int counter) {
+            if (inInt!=0){
+        params.addValue(nameColum, inInt);
+        column[counter] = nameColum;
+        param[counter] = " :" + nameColum;
+                counter++;
+                return counter;
+            }
+        return counter;
+    }
+
+    private int setField (double inDouble, String nameColum, int counter) {
+        if (inDouble!=0){
+            params.addValue(nameColum, inDouble);
+            column[counter] = nameColum;
+            param[counter] = " :" + nameColum;
+            counter++;
+            return counter;
+        }
+        return counter;
+    }
+
+    private int setField (Long inLong, String nameColum, int counter) {
+        if (inLong!=null){
+            params.addValue(nameColum, inLong);
+            column[counter] = nameColum;
+            param[counter] = " :" + nameColum;
+            counter++;
+            return counter;
+        }
+        return counter;
+    }
+
 }
