@@ -17,22 +17,45 @@ import java.util.List;
 
 import static org.mockito.Mockito.*;
 
+/**
+ * The type Book dao impl test.
+ */
 @SpringBootTest
 public class BookDaoImplTest {
+    /**
+     * The Book mapper.
+     */
     @Mock
     BookMapper bookMapper;
+    /**
+     * The Jdbc template.
+     */
     @Mock
     NamedParameterJdbcTemplate jdbcTemplate;
+    /**
+     * The Query param.
+     */
     @Mock
     SqlParameter queryParam;
+    /**
+     * The Book dao.
+     */
     @InjectMocks
     BookDaoImpl bookDaoImpl;
 
+    /**
+     * Sets up.
+     */
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
     }
 
+    /**
+     * Test get.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testGet() throws Exception {
         List<BookDao> daoList = new ArrayList<>();
@@ -44,6 +67,9 @@ public class BookDaoImplTest {
         Assert.assertEquals(daoList, result);
     }
 
+    /**
+     * Test get 2.
+     */
     @Test
     public void testGet2() {
         String sql = "select * from books ";
@@ -61,6 +87,11 @@ public class BookDaoImplTest {
         Assert.assertEquals(daoList, result);
     }
 
+    /**
+     * Test delete.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testDelete() throws Exception {
 
@@ -73,6 +104,11 @@ public class BookDaoImplTest {
         Assert.assertEquals(true, result);
     }
 
+    /**
+     * Test add.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testAdd() throws Exception {
         StringBuilder sql = new StringBuilder("select * from books ");

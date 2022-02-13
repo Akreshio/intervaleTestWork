@@ -12,17 +12,32 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 
 import static org.mockito.Mockito.*;
 
+/**
+ * The type Sql create by book test.
+ */
 class SqlCreateByBookTest {
+    /**
+     * The Params.
+     */
     @Mock
     MapSqlParameterSource params;
+    /**
+     * The Sql create by book.
+     */
     @InjectMocks
     SqlCreateByBook sqlCreateByBook;
 
+    /**
+     * Sets up.
+     */
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
     }
 
+    /**
+     * Test set.
+     */
     @Test
     void testSet() {
 

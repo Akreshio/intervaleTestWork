@@ -20,6 +20,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
+/**
+ * The type Book dto.
+ */
 @Getter
 @Setter
 @Data
@@ -47,6 +50,9 @@ public class BookDto implements Book {
     private String name;
 
 
+    /**
+     * Instantiates a new Book dto.
+     */
     public BookDto() {
         this.page = 0;
         this.price = 0;
@@ -57,6 +63,16 @@ public class BookDto implements Book {
     }
 
 
+    /**
+     * Instantiates a new Book dto.
+     *
+     * @param isbn   the isbn
+     * @param name   the name
+     * @param writer the writer
+     * @param page   the page
+     * @param price  the price
+     * @param weight the weight
+     */
     public BookDto(String isbn, String name, String writer, int page, int price, double weight) {
         this.isbn = isbn;
         this.name = name;
@@ -65,6 +81,12 @@ public class BookDto implements Book {
         this.price = price;
         this.weight = weight;
     }
+
+    /**
+     * Instantiates a new Book dto.
+     *
+     * @param isbn the isbn
+     */
     public BookDto(String isbn) {
         this.page = 0;
         this.price = 0;
@@ -73,6 +95,12 @@ public class BookDto implements Book {
         this.writer = "";
         this.name = "";
     }
+
+    /**
+     * Instantiates a new Book dto.
+     *
+     * @param book the book
+     */
     public BookDto(BookDao book) {
         this.page = book.getPage();
         this.price = book.getPrice();

@@ -27,21 +27,42 @@ import java.util.List;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
 
+/**
+ * The type Library service test.
+ */
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
 class LibraryServiceTest {
+    /**
+     * The Books dao.
+     */
     @Mock
     BooksDao booksDao;
+    /**
+     * The Rest template.
+     */
     @Mock
     RestTemplate restTemplate;
+    /**
+     * The Library service.
+     */
     @InjectMocks
     LibraryService libraryService;
 
+    /**
+     * Sets up.
+     */
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
     }
 
+    /**
+     * Test get.
+     *
+     * @throws MalformedURLException the malformed url exception
+     * @throws URISyntaxException    the uri syntax exception
+     */
     @Test
     void testGet() throws MalformedURLException, URISyntaxException {
         LibraryList libraryList = new LibraryList();

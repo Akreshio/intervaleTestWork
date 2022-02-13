@@ -7,6 +7,9 @@
 
 package com.Inter.demo.model.books;
 
+/**
+ * The interface Book.
+ */
 public interface Book {
 
 

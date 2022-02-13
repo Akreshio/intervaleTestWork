@@ -23,7 +23,6 @@ public class LibraryController {
     /**
      * The Library service.
      */
-
     @Autowired
     LibraryService libraryService;
 
@@ -33,7 +32,6 @@ public class LibraryController {
      * @param authorName the author name
      * @return the list of book
      */
-
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> get(@RequestParam(value = "AuthorName", required = false) String authorName) {

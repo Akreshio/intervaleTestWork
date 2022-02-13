@@ -11,6 +11,9 @@ import lombok.*;
 
 import javax.persistence.*;
 
+/**
+ * The type Book dao.
+ */
 @Entity
 @Table(name = "books")
 @Getter
@@ -22,27 +25,59 @@ public class BookDao implements Book {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    /**
+     * The Page.
+     */
     @Column(name = "page", nullable = false)
     int  page;
 
 
+    /**
+     * The Price.
+     */
     @Column(name = "price", nullable = false)
     int price;
 
+    /**
+     * The Weight.
+     */
     @Column(name = "weight", nullable = false)
     double weight;
 
+    /**
+     * The Isbn.
+     */
     @Column(name = "isbn", nullable = false)
     String isbn;
 
+    /**
+     * The Writer.
+     */
     @Column(name = "writer", nullable = false)
     String writer;
 
+    /**
+     * The Name.
+     */
     @Column(name = "name", nullable = false)
     String name;
 
+    /**
+     * Instantiates a new Book dao.
+     */
     public BookDao() {}
 
+    /**
+     * Instantiates a new Book dao.
+     *
+     * @param id     the id
+     * @param isbn   the isbn
+     * @param name   the name
+     * @param writer the writer
+     * @param page   the page
+     * @param price  the price
+     * @param weight the weight
+     */
     public BookDao(Long id, String isbn, String name, String writer, int page, int price, double weight) {
         this.id = id;
         this.page = page;
@@ -53,6 +88,11 @@ public class BookDao implements Book {
         this.name = name;
     }
 
+    /**
+     * Instantiates a new Book dao.
+     *
+     * @param book the book
+     */
     public BookDao(BookDto book) {
         this.page = book.getPage();
         this.price = book.getPrice();
@@ -62,6 +102,17 @@ public class BookDao implements Book {
         this.name = book.getName();
     }
 
+    /**
+     * Instantiates a new Book dao.
+     *
+     * @param id     the id
+     * @param page   the page
+     * @param price  the price
+     * @param weight the weight
+     * @param isbn   the isbn
+     * @param writer the writer
+     * @param name   the name
+     */
     public BookDao(long id, int page, int price, double weight, String isbn, String writer, String name) {
         this.id = id;
         this.page = page;

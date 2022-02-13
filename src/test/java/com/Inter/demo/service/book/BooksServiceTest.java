@@ -15,20 +15,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * The type Books service test.
+ */
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
 class BooksServiceTest {
 
+    /**
+     * The Books service.
+     */
     @InjectMocks
     BooksService booksService;
 
+    /**
+     * The Mokdao.
+     */
     @Mock
     BooksDao mokdao;
 
+    /**
+     * Get.
+     */
     @Test
     void get() {
     }
 
+    /**
+     * Test get.
+     */
     @Test
     void testGet() {
         BookDto bookDto = new BookDto("154-1874-158");
@@ -49,6 +64,9 @@ class BooksServiceTest {
         Mockito.verify(mokdao).get(Mockito.any(BookDao.class));
     }
 
+    /**
+     * Add.
+     */
     @Test
     void add() {
         BookDto bookDto = new BookDto("154-1874-158","book","bee",158,3008,158.01);
@@ -60,6 +78,9 @@ class BooksServiceTest {
         Assert.assertTrue(isBookAdd);
     }
 
+    /**
+     * Remove.
+     */
     @Test
     void remove() {
         BookDto bookDto = new BookDto("154-1874-158","book","bee",158,3008,158.01);
@@ -73,6 +94,9 @@ class BooksServiceTest {
 
     }
 
+    /**
+     * Update.
+     */
     @Ignore
     @Test
     void update() {

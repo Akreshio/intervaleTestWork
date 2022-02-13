@@ -11,20 +11,35 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 
 import static org.mockito.Mockito.*;
 
+/**
+ * The type Sql parameter test.
+ */
 class SqlParameterTest {
 //    @Mock
 //    MapSqlParameterSource params;
 
+    /**
+     * The Query.
+     */
     @Mock
     SqlCreateByBook query;
+    /**
+     * The Sql parameter.
+     */
     @InjectMocks
     SqlParameter sqlParameter;
 
+    /**
+     * Sets up.
+     */
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
     }
 
+    /**
+     * Test set.
+     */
     @Test
     void testSet() {
         MapSqlParameterSource params = new MapSqlParameterSource();

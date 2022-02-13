@@ -10,6 +10,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import java.io.IOException;
 
+/**
+ * The type Book deserializer.
+ */
 public class BookDeserializer extends JsonDeserializer<BookDto> {
 
     @Override

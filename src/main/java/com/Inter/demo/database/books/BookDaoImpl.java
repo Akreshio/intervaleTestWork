@@ -35,7 +35,6 @@ public class BookDaoImpl implements BooksDao{
      * @param jdbcTemplate the jdbc template
      * @param queryParam   the query param
      */
-
     @Autowired
     public BookDaoImpl(BookMapper bookMapper, NamedParameterJdbcTemplate jdbcTemplate, SqlParameter queryParam) {
         this.bookMapper = bookMapper;

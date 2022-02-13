@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * The type Book mapper.
+ */
 @Component
 public class BookMapper  implements RowMapper<BookDao> {
 
