@@ -1,3 +1,10 @@
+/*
+ * @author Виктор Дробышевский
+ * E-mail: akreshios@gmail.com
+ * @since "13.02.2022, 15:40"
+ * @version V 1.0.0
+ */
+
 package com.Inter.demo.service.book;
 
 import com.Inter.demo.database.books.BooksDao;
@@ -9,9 +16,15 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Books service.
+ */
 @Service
 public class BooksService implements BookService {
 
+    /**
+     * The Books dao.
+     */
     @Autowired
     BooksDao booksDao;
 

@@ -80,7 +80,7 @@ public class BookDaoImplTest {
 
         when(queryParam.set(any(), any())).thenReturn(true);
         when(queryParam.getParams()).thenReturn(params);
-        when(queryParam.getSql()).thenReturn(sql);
+        when(queryParam.getQuerySql()).thenReturn(sql.toString());
 
         boolean result = bookDaoImpl.add(new BookDao(Long.valueOf(1), "isbn", "name", "writer", 0, 0, 0d));
         Assert.assertEquals(true, result);
