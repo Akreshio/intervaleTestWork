@@ -15,9 +15,6 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 
 
-/**
- * The type Library.
- */
 @Getter
 @NoArgsConstructor
 @Data
@@ -28,11 +25,6 @@ public class Library {
     private int number_of_pages_median;
     private ArrayList<String> isbn;
 
-    /**
-     * Gets isbn.
-     *
-     * @return the isbn
-     */
     public String getISBN() {
         if (isbn!=null){
             return isbn.get(isbn.size()-1);

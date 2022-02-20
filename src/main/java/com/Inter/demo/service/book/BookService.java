@@ -26,7 +26,7 @@ public interface BookService {
     /**
      * Loading the books list by benchmark book (Загрузка списка книг по эталонной книге)
      *
-     * @param book the benchmark book (Эталонная книга)
+     * @param book the benchmark @see BookDto book (Эталонная книга)
      * @return the list of Book
      */
     List<BookDto> get (BookDto book);
