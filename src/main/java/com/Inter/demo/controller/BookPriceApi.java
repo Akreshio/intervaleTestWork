@@ -28,8 +28,8 @@ public interface BookPriceApi {
     /**
      * Get list.
      *
-     * @param name the name
-     * @return the list
+     * @param name the book name
+     * @return the list of book currency
      */
     @ApiOperation(value = "Курсы валют Национального банка Республики Беларусь", nickname = "getNationalRates", notes = "Возвращает курсы валют, установленные Национальным банком Республики Беларусь", tags={ "public", })
     @ApiResponses(value = {
