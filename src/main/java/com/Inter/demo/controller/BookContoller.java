@@ -1,7 +1,7 @@
 /*
  * @author Виктор Дробышевский
  * E-mail: akreshios@gmail.com
- * @since "13.02.2022, 16:44"
+ * @since "26.02.2022, 15:48"
  * @version V 1.0.0
  */
 
@@ -87,6 +87,7 @@ public class BookContoller {
     /**
      * Delete the book by request (Удаление книги по запросу)
      *
+     * @see BookDto
      * @param newBook the new book
      * @return the response entity
      */

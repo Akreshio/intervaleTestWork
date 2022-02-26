@@ -10,6 +10,7 @@ package com.Inter.demo.external.alfabank;
 import com.Inter.demo.database.books.BooksDao;
 import com.Inter.demo.external.alfabank.model.BookCurrency;
 import com.Inter.demo.external.alfabank.model.RateListResponse;
+import com.Inter.demo.external.kafka.Sender;
 import com.Inter.demo.model.books.BookDao;
 import com.Inter.demo.model.books.BookDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,8 @@ public class AlfabankService {
      */
     @Autowired
     RestTemplate restTemplate;
+    @Autowired
+    Sender sender;
 
 
     /**
@@ -48,7 +51,7 @@ public class AlfabankService {
      * @return the list of book currency
      */
     public List<BookCurrency> get(String name) {
-
+        sender.send("get", name);
         BookDto book = new BookDto();
         book.setName(name);
 
