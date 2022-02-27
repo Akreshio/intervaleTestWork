@@ -1,79 +1,106 @@
+/*
+ * @author Виктор Дробышевский
+ * E-mail: akreshios@gmail.com
+ * @since "26.02.2022, 15:48"
+ * @version V 1.0.0
+ */
+
 package com.Inter.demo.controller;
 
-import com.Inter.demo.model.books.Book;
-import com.Inter.demo.model.books.BookMap;
+import com.Inter.demo.model.books.BookDto;
+import com.Inter.demo.service.book.BooksService;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.apache.log4j.Logger;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
+import java.util.List;
 
+/**
+ * The type Book contoller.
+ */
+@Slf4j
 @RestController
 @RequestMapping("/book")
 @Validated
 public class BookContoller {
 
-    private static final Logger log = Logger.getLogger(BookContoller.class);
 
-    BookMap bookMap = new BookMap();
-    {
-        bookMap.put( new Book("nsqw","book1","not me", 10, 158, 15));
-        bookMap.put( new Book("nsqq","book2","not me", 15, 1558, 115));
-        bookMap.put( new Book("nsqe","book3","not me", 19, 158789, 135));
-    }
+    /**
+     * The Books.
+     */
+    @Autowired
+    BooksService books;
 
-
-
+    /**
+     * Getting the books list by request (Получение списка книг по запросу)
+     *
+     * @param isbn the string has formatted isbn
+     * @return the list of Book
+     */
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public  BookMap get(@RequestParam (value = "id", required = false) String id) {
+    public List<BookDto> get(@RequestParam (value = "isbn", required = false) String isbn) {
             log.info("Получение списка книг");
-            if (bookMap.isId(id) && id!=null) {
-                BookMap bookMapOne = new BookMap();
-                bookMapOne.put(bookMap.getForId(id));
-                log.info("по id = " + id);
-                return bookMapOne;
+            if (isbn!=null) {
+                BookDto book = new BookDto();
+                book.setIsbn(isbn);
+                return books.get(book);
             }
-        return  bookMap;
+        return  books.get();
     }
 
+    /**
+     * Add the book by request (Добавление книги по запросу)
+     *
+     * @param newBook       the new book
+     * @param bindingResult the binding result
+     * @return the response entity
+     */
     @PutMapping
-    public ResponseEntity<Void> add(@Valid @RequestBody Book newBook, BindingResult bindingResult) {
+    public ResponseEntity<Void> add(@Valid @RequestBody BookDto newBook, BindingResult bindingResult) {
         if(bindingResult.hasErrors())
-            return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-        System.out.println(newBook + " | " + bindingResult.hasErrors());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         log.info("Добавление книги " + newBook);
-        bookMap.put(newBook);
-        return new ResponseEntity<Void>(HttpStatus.CREATED);
+        books.add(newBook);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    /**
+     * Update the book by request (Обновление книги по запросу)
+     *
+     * @param dtoList the dto list
+     * @return the response entity
+     */
     @PostMapping
-    public ResponseEntity<String> update( @RequestBody Book book) {
-        bookMap.remove(book.getIsbn());
-        bookMap.put(book);
-        return new ResponseEntity<String>(book.getIsbn(), HttpStatus.OK);
+    public ResponseEntity<Void> update(@RequestBody List<BookDto> dtoList) {
+        if (dtoList.size()==2){
+            books.update(dtoList.get(0),dtoList.get(1));
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Delete the book by request (Удаление книги по запросу)
+     *
+     * @see BookDto
+     * @param newBook the new book
+     * @return the response entity
+     */
     @DeleteMapping
-    public ResponseEntity<Void> delete(@RequestBody String id) {
-        if (bookMap.isId(id)) { bookMap.remove(id);
-            return new ResponseEntity<Void>(HttpStatus.FOUND);
-        }
-        return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<Void> delete(@RequestBody BookDto newBook) {
+        log.info("Удаление книги " + newBook);
+        books.remove(newBook);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @Validated
-    class ValidateParametersController {
-        @ExceptionHandler(ConstraintViolationException.class)
-        @ResponseStatus(HttpStatus.BAD_REQUEST)
-        public ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException e) {
-            return new ResponseEntity<>("not valid due to validation error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
 
-    }
+
 }
 
