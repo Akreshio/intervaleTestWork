@@ -14,10 +14,22 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Mapper book open library.
+ */
 @Component
 @NoArgsConstructor
 public class MapperBookOpenLibrary {
 
+    /**
+     * openLibrary book to dto book (Конвертация книги из openLibrary в DTO)
+     *
+     * @param library the library
+     * @return the book dto
+     *
+     * @see BookDto
+     * @see Library
+     */
     public BookDto olToDto (Library library){
         BookDto book= new BookDto();
         book.setName(library.getTitle());
@@ -27,6 +39,15 @@ public class MapperBookOpenLibrary {
         return book;
     }
 
+    /**
+     * openLibrary  list to list dto (Конвертация книги из openLibrary в DTO)
+     *
+     * @param library the library
+     * @return the book dto
+     *
+     * @see BookDto
+     * @see Library
+     */
     public List<BookDto> listOlToDto (List<Library> library){
         List<BookDto> books = new ArrayList<>();
         for (Library book : library) {

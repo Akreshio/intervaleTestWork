@@ -19,14 +19,13 @@ import javax.annotation.Resource;
 /**
  * The type Rest template config.
  */
-
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan("com.Inter.demo.config.restTemplate")
 public class RestTemplateConfig {
 
     /**
-     * Rest template rest template.
+     * RestTemplate with default URI "https://ibapi.alfabank.by:8273"
      *
      * @param builder the builder
      * @return the rest template
@@ -39,6 +38,13 @@ public class RestTemplateConfig {
                 .additionalInterceptors(new CustomClientHttpRequestInterceptor())
                 .build();
     }
+
+    /**
+     *  RestTemplate with default URI "http://openlibrary.org"
+     *
+     * @param builder the builder
+     * @return the rest template
+     */
     @Bean("openLibrary")
     @Resource
     public RestTemplate restTemplateOpenLibrary(RestTemplateBuilder builder) {

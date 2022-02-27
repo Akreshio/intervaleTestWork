@@ -7,11 +7,14 @@
 
 package com.Inter.demo.external.kafka;
 
-import lombok.extern.slf4j.Slf4j;;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
+/**
+ * The type Sender.
+ */
 @Slf4j
 @Component
 public class Sender {
@@ -19,8 +22,14 @@ public class Sender {
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
 
-    public void send(String topic, String data) {
-        log.debug("sending data='{}' to topic='{}'", data, topic);
-        kafkaTemplate.send(topic, data);
+    /**
+     * Send message in topic
+     *
+     * @param topic the topic
+     * @param message the message
+     */
+    public void send(String topic, String message) {
+        log.debug("sending message = {} to topic = {}", message, topic);
+        kafkaTemplate.send(topic, message);
     }
 }

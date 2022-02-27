@@ -35,15 +35,17 @@ public class BookPriceApiController implements BookPriceApi {
 
     public List<BookCurrency> get(String name) {
 
-        List<BookDto> bookList = new ArrayList<>();
+        List<BookCurrency> result = new ArrayList<>();
         BookDto book = new BookDto();
         book.setName(name);
 
-        bookList.addAll(books.get(book));
+        List<BookDto> bookList = books.get(book);
 
-        List<BookCurrency> result = new ArrayList<>();
-        result.addAll(alfabankService.get(bookList));
-
+        if (bookList!=null) {
+            if (!bookList.isEmpty()) {
+                result.addAll(alfabankService.get(bookList));
+            }
+        }
         return result;
     }
 

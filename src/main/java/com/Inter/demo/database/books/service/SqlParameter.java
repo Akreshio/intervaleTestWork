@@ -42,8 +42,7 @@ public class SqlParameter {
      */
     public void set (SqlQuerty sqlQuerty){
         if (sqlQuerty == SqlQuerty.get) {
-            StringBuilder sql = new StringBuilder(sqlQuerty.sql());
-            querySql = sql.toString();
+            querySql = sqlQuerty.sql();
         }
     }
 
@@ -73,8 +72,8 @@ public class SqlParameter {
                 querySql = sql.toString();
                 return true;
             case insert:
-                StringBuilder sqlColumn = new StringBuilder("");
-                StringBuilder sqlParam  = new StringBuilder("");
+                StringBuilder sqlColumn = new StringBuilder();
+                StringBuilder sqlParam  = new StringBuilder();
 
                 for (int j=0; j<=count; j++){
                     sqlColumn.append(query.getColumn()[j]).append(", ");

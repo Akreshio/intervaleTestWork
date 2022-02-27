@@ -7,7 +7,6 @@
 
 package com.Inter.demo.external.alfabank.model;
 
-import com.Inter.demo.model.books.BookDao;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -32,21 +31,6 @@ public class BookCurrency {
     private String writer;
 
     private String name;
-
-    /**
-     * Instantiates a new Book currency.
-     *
-     * @param book  the book
-     * @param price the price
-     */
-    public BookCurrency(BookDao book, Map<String, BigDecimal> price) {
-        this.isbn = book.getIsbn();
-        this.name = book.getName();
-        this.writer = book.getWriter();
-        this.page = book.getPage();
-        this.price = price;
-        this.weight = book.getWeight();
-    }
 
     @Override
     public String toString() {

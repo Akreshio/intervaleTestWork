@@ -65,10 +65,10 @@ public class BookContoller {
     @PutMapping
     public ResponseEntity<Void> add(@Valid @RequestBody BookDto newBook, BindingResult bindingResult) {
         if(bindingResult.hasErrors())
-            return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         log.info("Добавление книги " + newBook);
         books.add(newBook);
-        return new ResponseEntity<Void>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     /**
@@ -81,9 +81,9 @@ public class BookContoller {
     public ResponseEntity<Void> update(@RequestBody List<BookDto> dtoList) {
         if (dtoList.size()==2){
             books.update(dtoList.get(0),dtoList.get(1));
-            return new ResponseEntity<Void>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-        return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     /**
@@ -97,7 +97,7 @@ public class BookContoller {
     public ResponseEntity<Void> delete(@RequestBody BookDto newBook) {
         log.info("Удаление книги " + newBook);
         books.remove(newBook);
-        return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 

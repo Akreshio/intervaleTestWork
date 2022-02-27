@@ -8,7 +8,6 @@
 package com.Inter.demo.config.mvcInterceptor;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -16,19 +15,30 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
+/**
+ * The type Mvc config.
+ */
 @EnableWebMvc
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 
-    public MvcConfig() {
+    /**
+     * Instantiates a new Mvc config.
+     *
+     * @param kafkaTemplate the kafka template
+     */
+
+    public MvcConfig(KafkaTemplate<String, String> kafkaTemplate) {
         super();
+        this.kafkaTemplate = kafkaTemplate;
     }
 
-    @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     @Override
     public void addInterceptors(final InterceptorRegistry registry) {
-        registry.addInterceptor(new MvcInterceptor(kafkaTemplate));
+        registry.addInterceptor(
+                new MvcInterceptor(kafkaTemplate)
+        );
     }
 }

@@ -7,7 +7,6 @@
 
 package com.Inter.demo.external.alfabank;
 
-import com.Inter.demo.database.books.BooksDao;
 import com.Inter.demo.external.alfabank.model.BookCurrency;
 import com.Inter.demo.external.alfabank.model.MapperBookAlfaBank;
 import com.Inter.demo.external.alfabank.model.RateListResponse;
@@ -20,7 +19,7 @@ import java.util.List;
 
 
 /**
- * The type Alfabank service.
+ * The type Alfa Bank service.
  */
 @Service
 public class AlfabankService {
@@ -32,12 +31,23 @@ public class AlfabankService {
     @Qualifier("alfaBank")
     RestTemplate restTemplate;
 
+    /**
+     * The Mapper book.
+     */
     @Autowired
     MapperBookAlfaBank mapperBook;
 
+    /**
+     * Get list of books with new currency
+     *
+     * @param books the list of books
+     * @return the list of books with currency
+     *
+     * @see BookCurrency
+     * @see BookDto
+     */
     public List<BookCurrency> get(List<BookDto> books) {
 
-        //https://ibapi.alfabank.by:8273/
         String URI = "partner/1.0.1/public/rates";
         RateListResponse rateList = restTemplate.getForEntity(URI, RateListResponse.class).getBody();
 

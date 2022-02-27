@@ -11,8 +11,6 @@ package com.Inter.demo.controller;
 import com.Inter.demo.external.alfabank.model.BookCurrency;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,10 +30,6 @@ public interface BookPriceApi {
      * @return the list of book currency
      */
     @ApiOperation(value = "Курсы валют Национального банка Республики Беларусь", nickname = "getNationalRates", notes = "Возвращает курсы валют, установленные Национальным банком Республики Беларусь", tags={ "public", })
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Успешное выполнение запроса"),
-            @ApiResponse(code = 400, message = "Некорректный запрос"),
-            @ApiResponse(code = 500, message = "Ошибка выполнения запроса") })
     @RequestMapping(value = "/price",
             produces = { "application/json;charset=UTF-8" },
             method = RequestMethod.GET)

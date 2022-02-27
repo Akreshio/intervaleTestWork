@@ -87,12 +87,10 @@ class LibraryServiceTest {
 
         when(booksDao.get(any())).thenReturn(Arrays.<BookDao>asList(new BookDao(Long.valueOf(1),  0,0, 0d, "isbn", "writer", "")));
 
-    //    when(restTemplate.getForEntity(uri, any())).thenReturn(new ResponseEntity<>(HttpStatus.OK));
 
         when(restTemplate.getForEntity(uri, any()).getBody())
                 .thenReturn(libraryList);
 
-       // doReturn(libraryList).when(restTemplate.getForEntity(anyString(), eq(LibraryList.class)).getBody());
 
         List<BookDto> result = libraryService.get("authorName");
         Assertions.assertEquals(2, result.size());

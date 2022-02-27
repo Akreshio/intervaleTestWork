@@ -7,27 +7,39 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
 
-import static java.math.BigDecimal.ROUND_DOWN;
+import javax.annotation.Generated;
+import javax.validation.Valid;
 
 /**
  * Выходная модель, содержащая основные курсы валют Альфа-Банка
  */
 @ApiModel(description = "Выходная модель, содержащая основные курсы валют Альфа-Банка")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-02-18T13:29:10.146+02:00")
+@Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-02-18T13:29:10.146+02:00")
 
 public class RateListResponse   {
   @JsonProperty("rates")
   @Valid
   private List<Rate> rates = null;
 
+  /**
+   * Rates rate list response.
+   *
+   * @param rates the rates
+   * @return the rate list response
+   */
   public RateListResponse rates(List<Rate> rates) {
     this.rates = rates;
     return this;
   }
 
+  /**
+   * Add rates item rate list response.
+   *
+   * @param ratesItem the rates item
+   * @return the rate list response
+   */
   public RateListResponse addRatesItem(Rate ratesItem) {
     if (this.rates == null) {
       this.rates = new ArrayList<Rate>();
@@ -38,36 +50,22 @@ public class RateListResponse   {
 
   /**
    * Список основных курсов валют Альфа-Банка
-   * @return rates
-  **/
+   *
+   * @return rates rates
+   */
   @ApiModelProperty(value = "Список основных курсов валют Альфа-Банка")
-
   @Valid
-
   public List<Rate> getRates() {
     return rates;
   }
 
+  /**
+   * Sets rates.
+   *
+   * @param rates the rates
+   */
   public void setRates(List<Rate> rates) {
     this.rates = rates;
-  }
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    RateListResponse rateListResponse = (RateListResponse) o;
-    return Objects.equals(this.rates, rateListResponse.rates);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(rates);
   }
 
   @Override
@@ -91,13 +89,20 @@ public class RateListResponse   {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * To currency map.
+   *
+   * @param price the price
+   * @return the map
+   */
+
   public Map<String, BigDecimal> toCurrency(BigDecimal price) {
     Map<String, BigDecimal> prices = new HashMap<String, BigDecimal>();
 
     for(Rate rate : rates) {
       if (rate.getName()!=null) {
         BigDecimal quantity =price.multiply(BigDecimal.valueOf(rate.getQuantity()));
-        prices.put(rate.getSellIso(), quantity.divide(rate.getBuyRate(), 5 ,ROUND_DOWN));
+        prices.put(rate.getSellIso(), quantity.divide(rate.getBuyRate(), 5, BigDecimal.ROUND_DOWN));
       }
     }
     return prices;

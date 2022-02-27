@@ -48,7 +48,7 @@ public class LibraryController {
         result.addAll(libraryService.get(authorName));
         result.addAll(books.get(book));
 
-        return new ResponseEntity<List<BookDto>>(result, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
 

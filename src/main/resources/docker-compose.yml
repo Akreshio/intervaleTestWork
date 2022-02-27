@@ -21,7 +21,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - zookeeper
-
   spring_boot:
     build: .
     depends_on:

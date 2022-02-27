@@ -17,10 +17,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The type Mapper book alfa bank.
+ */
 @Component
 @NoArgsConstructor
 public class MapperBookAlfaBank {
 
+    /**
+     * Dto to currency book currency.
+     *
+     * @param book   the book
+     * @param prices the prices
+     * @return the book currency
+     *
+     * @see BookCurrency
+     * @see BookDto
+     */
     public BookCurrency dtoToCurrency (BookDto book, Map<String, BigDecimal> prices){
         BookCurrency bookCurrency = new BookCurrency();
 
@@ -33,11 +46,22 @@ public class MapperBookAlfaBank {
         return bookCurrency;
     }
 
-        public List<BookCurrency> dtoListToCurrencyList (List<BookDto> booksListDao, RateListResponse ratesList){
+    /**
+     * Dto list to currency list.
+     *
+     * @param booksListDao the books list dao
+     * @param ratesList    the rates list
+     * @return the list
+     *
+     * @see BookCurrency
+     * @see BookDto
+     * @see RateListResponse
+     */
+    public List<BookCurrency> dtoListToCurrencyList (List<BookDto> booksListDao, RateListResponse ratesList){
         List<BookCurrency> booksList = new ArrayList<>();
         for (BookDto book:booksListDao) {
 
-            Map<String, BigDecimal> prices = new HashMap<String, BigDecimal>();
+            Map<String, BigDecimal> prices = new HashMap<>();
             BigDecimal byn = BigDecimal.valueOf(book.getPrice()/100);
             prices.put("BYN", byn);
             prices.putAll(ratesList.toCurrency(byn));

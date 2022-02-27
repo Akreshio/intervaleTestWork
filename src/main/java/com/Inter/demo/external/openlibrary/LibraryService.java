@@ -7,9 +7,7 @@
 
 package com.Inter.demo.external.openlibrary;
 
-import com.Inter.demo.database.books.BooksDao;
 import com.Inter.demo.external.openlibrary.model.MapperBookOpenLibrary;
-import com.Inter.demo.model.books.BookDao;
 import com.Inter.demo.model.books.BookDto;
 import com.Inter.demo.external.openlibrary.model.LibraryList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,32 +24,36 @@ import java.util.List;
 public class LibraryService {
 
     /**
-     * The Books dao.
+     * The mapper book
      */
     @Autowired
     MapperBookOpenLibrary mapperBook;
+
     /**
-     * The Rest template.
+     * The RestTemplate with base url "openLibrary" (RestTemplate с базовым URL "openLibrary")
      */
     @Autowired
     @Qualifier("openLibrary")
     RestTemplate restTemplate;
 
     /**
-     * Get list.
+     * Getting the book list from openLibrary (Получение списка книг из openLibrary)
      *
      * @param authorName the author name
-     * @return the list
+     * @return the list of BookDto
+     *
+     * @see BookDto
      */
     public List<BookDto> get(String authorName) {
-
         LibraryList libraryList;
-       // http://openlibrary.org/
         String URI_AUTHOR = "search.json?author=";
 
         libraryList = restTemplate.getForEntity(URI_AUTHOR + authorName, LibraryList.class).getBody();
 
-        return mapperBook.listOlToDto(libraryList.getDocs());
+        if (libraryList != null) {
+            return mapperBook.listOlToDto(libraryList.getDocs());
+        }
+        return null;
     }
 }
 

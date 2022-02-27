@@ -16,6 +16,9 @@ import org.springframework.lang.NonNull;
 
 import java.io.IOException;
 
+/**
+ * The type Custom client http request interceptor.
+ */
 @Slf4j
 public class CustomClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {
 

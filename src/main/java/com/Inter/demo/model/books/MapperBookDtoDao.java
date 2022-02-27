@@ -13,10 +13,22 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Mapper book dto dao.
+ */
 @Component
 @NoArgsConstructor
 public class MapperBookDtoDao {
 
+    /**
+     * Book dto to book dao (Конвертация книги из DTO в DAO)
+     *
+     * @param book the bookDto
+     * @return the bookDao
+     *
+     * @see BookDao
+     * @see BookDto
+     */
     public BookDao dtoToDao (BookDto book){
         BookDao bookDao = new BookDao();
         bookDao.setPage(book.getPage());
@@ -28,6 +40,15 @@ public class MapperBookDtoDao {
         return bookDao;
     }
 
+    /**
+     * Book dao to book dto (Конвертация книги из DAO в DTO)
+     *
+     * @param book the bookDao
+     * @return the bookDto
+     *
+     * @see BookDao
+     * @see BookDto
+     */
     public BookDto daoToDto (BookDao book){
         BookDto bookDto = new BookDto();
         bookDto.setPage(book.getPage());
@@ -39,6 +60,15 @@ public class MapperBookDtoDao {
         return bookDto;
     }
 
+    /**
+     * List dao to dto list (Конвертация листа книг из DAO в DTO)
+     *
+     * @param booksDao  list of books dao
+     * @return the list of books dto
+     *
+     * @see BookDao
+     * @see BookDto
+     */
     public List<BookDto> listDaoToDto (List<BookDao> booksDao){
         List<BookDto> books = new ArrayList<>();
         for (BookDao book:booksDao) {
@@ -47,6 +77,15 @@ public class MapperBookDtoDao {
         return books;
     }
 
+    /**
+     * List dto to dao list (Конвертация листа книг из DTO в DAO)
+     *
+     * @param booksDto  list of books dto
+     * @return the list of books dao
+     *
+     * @see BookDao
+     * @see BookDto
+     */
     public List<BookDao> listDtoToDao (List<BookDto> booksDto){
         List<BookDao> books = new ArrayList<>();
         for (BookDto book:booksDto) {

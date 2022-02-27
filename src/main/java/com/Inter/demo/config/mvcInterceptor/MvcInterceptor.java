@@ -12,12 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import org.assertj.core.util.Strings;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * The type Mvc interceptor.
+ */
 @Slf4j
 @AllArgsConstructor
 public class MvcInterceptor implements HandlerInterceptor {
@@ -25,7 +29,7 @@ public class MvcInterceptor implements HandlerInterceptor {
     private KafkaTemplate<String, String> kafkaTemplate;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse  response, Object handler) {
+    public boolean preHandle(HttpServletRequest request, @NonNull HttpServletResponse  response,@NonNull Object handler) {
 
         String loggerMvc = "[" + request.getMethod() + "]" + request.getRequestURI() + getParameters(request);
 
