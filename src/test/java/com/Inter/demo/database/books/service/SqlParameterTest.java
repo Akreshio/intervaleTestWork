@@ -52,7 +52,7 @@ class SqlParameterTest {
         when(query.getParam()).thenReturn(str);
         when(query.getColumn()).thenReturn(str);
 
-        boolean result = sqlParameter.set(new BookDao(null, "isbn", "", "writer", 0, 0, 0d), SqlQuerty.get_by);
+        boolean result = sqlParameter.set(new BookDao(null, 0,0, 0d, "isbn", "writer", ""  ), SqlQuerty.get_by);
         Assert.assertEquals(true, result);
     }
 }

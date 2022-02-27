@@ -59,7 +59,7 @@ public class BookDaoImplTest {
     @Test
     public void testGet() throws Exception {
         List<BookDao> daoList = new ArrayList<>();
-        daoList.add(new BookDao(Long.valueOf(1), "isbn", "name", "writer", 0, 0, 0d));
+        daoList.add(new BookDao(Long.valueOf(1),  0,0, 0d, "isbn", "writer", ""));
 
         when(jdbcTemplate.query(anyString(), any(BookMapper.class))).thenReturn(daoList);
 
@@ -75,7 +75,7 @@ public class BookDaoImplTest {
         String sql = "select * from books ";
         MapSqlParameterSource params = new MapSqlParameterSource();
         List<BookDao> daoList = new ArrayList<>();
-        daoList.add(new BookDao(Long.valueOf(1), "isbn", "name", "writer", 0, 0, 0d));
+        daoList.add(new BookDao(Long.valueOf(1),  0,0, 0d, "isbn", "writer", ""));
 
 
         when(queryParam.set(any(), any())).thenReturn(true);
@@ -83,7 +83,7 @@ public class BookDaoImplTest {
         when(queryParam.getQuerySql()).thenReturn("getQuerySqlResponse");
         when(jdbcTemplate.query(anyString(),any(MapSqlParameterSource.class),any(BookMapper.class))).thenReturn(daoList);
 
-        List<BookDao> result = bookDaoImpl.get(new BookDao(Long.valueOf(1), "isbn", "name", "writer", 0, 0, 0d));
+        List<BookDao> result = bookDaoImpl.get(new BookDao(Long.valueOf(1),  0,0, 0d, "isbn", "writer", ""));
         Assert.assertEquals(daoList, result);
     }
 
@@ -100,7 +100,7 @@ public class BookDaoImplTest {
         when(queryParam.getQuerySql()).thenReturn("getQuerySqlResponse");
         when(jdbcTemplate.update(anyString(),any(MapSqlParameterSource.class))).thenReturn(1);
 
-        boolean result = bookDaoImpl.delete(new BookDao(Long.valueOf(1), "isbn", "name", "writer", 0, 0, 0d));
+        boolean result = bookDaoImpl.delete(new BookDao(Long.valueOf(1),  0,0, 0d, "isbn", "writer", ""));
         Assert.assertEquals(true, result);
     }
 
@@ -118,7 +118,7 @@ public class BookDaoImplTest {
         when(queryParam.getParams()).thenReturn(params);
         when(queryParam.getQuerySql()).thenReturn(sql.toString());
 
-        boolean result = bookDaoImpl.add(new BookDao(Long.valueOf(1), "isbn", "name", "writer", 0, 0, 0d));
+        boolean result = bookDaoImpl.add(new BookDao(Long.valueOf(1),  0,0, 0d, "isbn", "writer", ""));
         Assert.assertEquals(true, result);
     }
 }

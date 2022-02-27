@@ -48,7 +48,9 @@ public class BookContoller {
     public List<BookDto> get(@RequestParam (value = "isbn", required = false) String isbn) {
             log.info("Получение списка книг");
             if (isbn!=null) {
-                return books.get(new BookDto(isbn));
+                BookDto book = new BookDto();
+                book.setIsbn(isbn);
+                return books.get(book);
             }
         return  books.get();
     }

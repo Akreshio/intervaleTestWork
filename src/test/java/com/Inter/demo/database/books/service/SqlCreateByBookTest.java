@@ -35,13 +35,13 @@ class SqlCreateByBookTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    /**
-     * Test set.
-     */
-    @Test
-    void testSet() {
-
-        int result = sqlCreateByBook.set(new BookDao(null, "isbn", "name", "writer", 0, 5000, 0d));
-        Assertions.assertEquals(4, result);
-    }
+//    /**
+//     * Test set.
+//     */
+//    @Test
+//    void testSet() {
+//
+//        int result = sqlCreateByBook.set(new BookDao(null, "isbn", "name", "writer", 0, 5000, 0d));
+//        Assertions.assertEquals(4, result);
+//    }
 }

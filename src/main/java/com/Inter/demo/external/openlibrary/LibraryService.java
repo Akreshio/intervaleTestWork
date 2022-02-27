@@ -8,10 +8,12 @@
 package com.Inter.demo.external.openlibrary;
 
 import com.Inter.demo.database.books.BooksDao;
+import com.Inter.demo.external.openlibrary.model.MapperBookOpenLibrary;
 import com.Inter.demo.model.books.BookDao;
 import com.Inter.demo.model.books.BookDto;
 import com.Inter.demo.external.openlibrary.model.LibraryList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -28,12 +30,12 @@ public class LibraryService {
      * The Books dao.
      */
     @Autowired
-    BooksDao booksDao;
-
+    MapperBookOpenLibrary mapperBook;
     /**
      * The Rest template.
      */
     @Autowired
+    @Qualifier("openLibrary")
     RestTemplate restTemplate;
 
     /**
@@ -43,31 +45,14 @@ public class LibraryService {
      * @return the list
      */
     public List<BookDto> get(String authorName) {
-        BookDto book = new BookDto();
-        book.setWriter(authorName);
-        List<BookDto> dtoList;
 
-        dtoList = booksListToDTO(booksDao.get(bookToDAO(book)));
+        LibraryList libraryList;
+       // http://openlibrary.org/
+        String URI_AUTHOR = "search.json?author=";
 
-        String URI_AUTHOR = "http://openlibrary.org/search.json?author=";
-        LibraryList libraryList = restTemplate.getForEntity(URI_AUTHOR + authorName, LibraryList.class).getBody();
+        libraryList = restTemplate.getForEntity(URI_AUTHOR + authorName, LibraryList.class).getBody();
 
-        assert libraryList != null;
-        dtoList.addAll(libraryList.getBookDTO());
-
-        return dtoList;
+        return mapperBook.listOlToDto(libraryList.getDocs());
     }
-
-    private List<BookDto> booksListToDTO(List<BookDao> booksListDao){
-        List<BookDto> booksList = new ArrayList<>();
-        for (BookDao book:booksListDao) {
-            booksList.add(new BookDto(book));
-        }
-        return booksList;
-    }
-    private BookDao bookToDAO(BookDto book){
-        return new BookDao(book);
-    }
-
 }
 

@@ -12,19 +12,20 @@ import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.lang.NonNull;
 
 import java.io.IOException;
 
 @Slf4j
 public class CustomClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {
 
-
     @Override
+    @NonNull
     public ClientHttpResponse intercept(
-
-            HttpRequest request, byte[] body,
-            ClientHttpRequestExecution execution) throws IOException {
-
+            @NonNull HttpRequest request,
+            @NonNull byte[] body,
+            ClientHttpRequestExecution execution
+    ) throws IOException {
         logRequestDetails(request);
         return execution.execute(request, body);
     }

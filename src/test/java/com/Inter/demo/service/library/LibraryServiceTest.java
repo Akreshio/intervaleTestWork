@@ -85,7 +85,7 @@ class LibraryServiceTest {
         final String baseUrl = "http://openlibrary.org/search.json?author=authorName";
         URI uri = new URI(baseUrl);
 
-        when(booksDao.get(any())).thenReturn(Arrays.<BookDao>asList(new BookDao(Long.valueOf(1), "isbn", "name", "writer", 0, 0, 0d)));
+        when(booksDao.get(any())).thenReturn(Arrays.<BookDao>asList(new BookDao(Long.valueOf(1),  0,0, 0d, "isbn", "writer", "")));
 
     //    when(restTemplate.getForEntity(uri, any())).thenReturn(new ResponseEntity<>(HttpStatus.OK));
 

@@ -20,12 +20,12 @@ public class BookDeserializer extends JsonDeserializer<BookDto> {
         ObjectCodec oc = jsonParser.getCodec();
         JsonNode node = oc.readTree(jsonParser);
         return new BookDto(
-                node.get("isbn").textValue(),
-                node.get("name").textValue(),
-                node.get("writer").textValue(),
                 node.get("page").asInt(),
                 node.get("price").asInt(),
-                node.get("weight").asDouble()
-                );
+                node.get("weight").asDouble(),
+                node.get("isbn").textValue(),
+                node.get("writer").textValue(),
+                node.get("name").textValue()
+        );
     }
 }

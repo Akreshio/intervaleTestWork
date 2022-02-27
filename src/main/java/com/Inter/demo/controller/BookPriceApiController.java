@@ -9,10 +9,13 @@ package com.Inter.demo.controller;
 
 import com.Inter.demo.external.alfabank.AlfabankService;
 import com.Inter.demo.external.alfabank.model.BookCurrency;
+import com.Inter.demo.model.books.BookDto;
+import com.Inter.demo.service.book.BooksService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,9 +30,21 @@ public class BookPriceApiController implements BookPriceApi {
      */
     @Autowired
     AlfabankService alfabankService;
+    @Autowired
+    BooksService books;
 
     public List<BookCurrency> get(String name) {
-        return alfabankService.get(name);
+
+        List<BookDto> bookList = new ArrayList<>();
+        BookDto book = new BookDto();
+        book.setName(name);
+
+        bookList.addAll(books.get(book));
+
+        List<BookCurrency> result = new ArrayList<>();
+        result.addAll(alfabankService.get(bookList));
+
+        return result;
     }
 
 }

@@ -8,12 +8,12 @@
 package com.Inter.demo.service.book;
 
 import com.Inter.demo.database.books.BooksDao;
-import com.Inter.demo.model.books.BookDao;
 import com.Inter.demo.model.books.BookDto;
+import com.Inter.demo.model.books.MapperBookDtoDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 /**
@@ -27,41 +27,44 @@ public class BooksService implements BookService {
      */
     @Autowired
     BooksDao booksDao;
+    @Autowired
+    MapperBookDtoDao mapperBook;
 
     @Override
     public List<BookDto> get() {
-        return booksListToDTO(booksDao.get());
+        return mapperBook.listDaoToDto(
+                booksDao.get()
+        );
     }
 
     @Override
     public List<BookDto> get(BookDto book) {
-        return booksListToDTO(booksDao.get(bookToDAO(book)));
+        return mapperBook.listDaoToDto(
+                booksDao.get(
+                        mapperBook.dtoToDao(book)
+                )
+        );
     }
 
     @Override
     public boolean add(BookDto book) {
-        return booksDao.add(bookToDAO(book));
+        return booksDao.add(
+                mapperBook.dtoToDao(book)
+        );
     }
 
     @Override
     public boolean remove(BookDto book) {
-        return booksDao.delete(bookToDAO(book));
+        return booksDao.delete(
+                mapperBook.dtoToDao(book)
+        );
     }
 
     @Override
     public boolean update(BookDto oldBook, BookDto newBook) {
-        return booksDao.update(bookToDAO(oldBook),bookToDAO(newBook));
-    }
-
-
-    private List<BookDto> booksListToDTO(List<BookDao> booksListDao){
-        List<BookDto> booksList = new ArrayList<>();
-        for (BookDao book:booksListDao) {
-            booksList.add(new BookDto(book));
-        }
-        return booksList;
-    }
-    private BookDao bookToDAO(BookDto book){
-        return new BookDao(book);
+        return booksDao.update(
+                mapperBook.dtoToDao(oldBook),
+                mapperBook.dtoToDao(newBook)
+        );
     }
 }

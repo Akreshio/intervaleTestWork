@@ -90,12 +90,13 @@ public class RateListResponse   {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  public Map<String, BigDecimal> toCurrency(int price) {
+
+  public Map<String, BigDecimal> toCurrency(BigDecimal price) {
     Map<String, BigDecimal> prices = new HashMap<String, BigDecimal>();
 
     for(Rate rate : rates) {
       if (rate.getName()!=null) {
-        BigDecimal quantity = BigDecimal.valueOf(rate.getQuantity()*price);
+        BigDecimal quantity =price.multiply(BigDecimal.valueOf(rate.getQuantity()));
         prices.put(rate.getSellIso(), quantity.divide(rate.getBuyRate(), 5 ,ROUND_DOWN));
       }
     }
